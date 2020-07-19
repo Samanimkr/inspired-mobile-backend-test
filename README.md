@@ -18,4 +18,6 @@
 
 `PUT  /users/:userId` - Update user by id
 
-`DELETE /users/:userId` - Delete user by id 
+`DELETE /users/:userId` - Delete user by id
+
+#### You can configure the Mongo database URL on `src/server.ts:8`

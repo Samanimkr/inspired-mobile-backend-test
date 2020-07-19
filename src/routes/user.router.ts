@@ -1,14 +1,14 @@
-import express from "express";
+import express, { Router } from "express";
 import mongoose from "mongoose";
 
 import User from "../models/user.model";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // GET all users
 router.get("/", async (_req, res, next) => {
     try {
-        const users = await User.find();
+        const users: Array<mongoose.Document> = await User.find();
         res.status(201).send(users);
     }
     catch(err) {
@@ -36,8 +36,8 @@ router.post("/", async (req, res, next) => {
 // GET user by id
 router.get("/:userId", async (req, res, next) => {
     try {
-        const id = req.params.userId;
-        const user = await User.findById(id);
+        const id: string = req.params.userId;
+        const user: mongoose.Document | null = await User.findById(id);
 
         if (!user) res.status(404).json({ message: "User not found!" });
         res.status(201).send(user);
@@ -50,9 +50,8 @@ router.get("/:userId", async (req, res, next) => {
 // UPDATE user by id
 router.put("/:userId", async (req, res, next) => {
     try {
-        const id = req.params.userId;
-
-        const user = await User.findByIdAndUpdate(id, req.body, { new: true })
+        const id: string = req.params.userId;
+        const user: mongoose.Document | null = await User.findByIdAndUpdate(id, req.body, { new: true })
 
         if (!user) res.status(404).json({ message: "User not found!" });
         res.status(201).send({ message: "User updated Successfully", user });
@@ -65,8 +64,8 @@ router.put("/:userId", async (req, res, next) => {
 // DELETE user by id
 router.delete("/:userId",  async (req, res, next) => {
     try {
-        const id = req.params.userId;
-        const user = await User.findByIdAndDelete(id);
+        const id: string = req.params.userId;
+        const user: mongoose.Document | null = await User.findByIdAndDelete(id);
 
         if (!user) res.status(404).json({ message: "User not found!" });
         res.status(201).send({ message: "User deleted successfully" });
