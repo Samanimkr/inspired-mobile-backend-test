@@ -1,17 +1,22 @@
 import express from "express";
 import mongoose from "mongoose";
 
-import User, { UserType } from "../models/user.model";
+import User from "../models/user.model";
 
 const router = express.Router();
 
-router.get("/", (_req, res) => {
-    res.status(200).json({
-        message: "Handling GET requests to /users"
-    });
+// GET all users
+router.get("/", async (_req, res, next) => {
+    try {
+        const users = await User.find();
+        res.status(201).send(users);
+    }
+    catch(err) {
+        next(err)
+    }
 });
 
-// Create a user
+// CREATE a user
 router.post("/", async (req, res, next) => {
     try {
         const user: mongoose.Document = new User({
@@ -22,19 +27,24 @@ router.post("/", async (req, res, next) => {
 
         const savedUser: mongoose.Document = await user.save();
         res.status(201).send(savedUser);
-    } catch(err) {
+    }
+    catch(err) {
         next(err);
     }
 });
 
-// Get user by id
-router.get("/:userId", (req, res) => {
-    const id = req.params.userId;
+// GET user by id
+router.get("/:userId", async (req, res, next) => {
+    try {
+        const id = req.params.userId;
+        const user = await User.findById(id);
 
-    User.findById(id, (err, user) => {
-        if (err || !user) res.status(404).json({ message: "User not found!" });
-        res.send(user); 
-    });
+        if (!user) res.status(404).json({ message: "User not found!" });
+        res.status(201).send(user);
+    }
+    catch(err) {
+        next(err);
+    }
 });
 
 
