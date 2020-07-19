@@ -1,0 +1,32 @@
+{
+  "name": "inspired-mobile-backend-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "start": "node src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samanimkr/inspired-mobile-backend-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Samanimkr/inspired-mobile-backend-test/issues"
+  },
+  "homepage": "https://github.com/Samanimkr/inspired-mobile-backend-test#readme",
+  "dependencies": {
+    "@types/express": "^4.17.7",
+    "@types/mongoose": "^5.7.32",
+    "@types/node": "^14.0.23",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
