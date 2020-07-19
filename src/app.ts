@@ -14,7 +14,7 @@ app.use("/users", userRoutes);
 
 // Global error handling
 app.use((error: any, req: any, res: any, next: any) => {
-    console.log(error); // use during development stage
+    // console.log(error); // use during development stage
 
     res.status(500).send('Oops! Something went wrong, please try again.');
 });

@@ -26,7 +26,7 @@ router.post("/", async (req, res, next) => {
         });
 
         const savedUser: mongoose.Document = await user.save();
-        res.status(201).send(savedUser);
+        res.status(201).send({ message: "User Created Successfully", savedUser });
     }
     catch(err) {
         next(err);
@@ -47,6 +47,21 @@ router.get("/:userId", async (req, res, next) => {
     }
 });
 
+// UPDATE user by id
+router.put("/:userId", async (req, res, next) => {
+    try {
+        const id = req.params.userId;
+
+        const user = await User.findByIdAndUpdate(id, req.body, { new: true })
+
+        if (!user) res.status(404).json({ message: "User not found!" });
+        res.status(201).send({ message: "User updated Successfully", user });
+    }
+    catch(err) {
+        next(err);
+    }
+});
+
 // DELETE user by id
 router.delete("/:userId",  async (req, res, next) => {
     try {
@@ -54,7 +69,7 @@ router.delete("/:userId",  async (req, res, next) => {
         const user = await User.findByIdAndDelete(id);
 
         if (!user) res.status(404).json({ message: "User not found!" });
-        res.status(201).send("User deleted successfully");
+        res.status(201).send({ message: "User deleted successfully" });
     }
     catch(err) {
         next(err);
